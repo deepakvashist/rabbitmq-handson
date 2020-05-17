@@ -1,14 +1,6 @@
 from pika import BlockingConnection, ConnectionParameters
 
-
-# Get connection instance
 connection = BlockingConnection(ConnectionParameters(host="localhost"))
-
-# Create the connection channel
 channel = connection.channel()
-
-# Declare the exchange (idempotent operation)
-channel.exchange_declare(exchange="order", exchange_type="direct")
-
-# Publish sample message
-channel.basic_publish(exchange="order", routing_key="create", body={})
+channel.exchange_declare(exchange="order.direct", exchange_type="direct")
+channel.basic_publish(exchange="order.direct", routing_key="create", body={})
